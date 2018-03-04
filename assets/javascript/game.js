@@ -23,7 +23,7 @@ var game = {
             image: "assets/images/lukeSky.png",
             healthPoints : 130,
             attackPower : 10,
-            counterAttack : 5,
+            counterAttack : 15,
             identity : "lukeSky",
             attackHold : 10,
         },
@@ -33,7 +33,7 @@ var game = {
             image: "assets/images/darthMaul.png",
             healthPoints : 180,
             attackPower : 4,
-            counterAttack : 25,
+            counterAttack : 10,
             identity : "darthMaul",
             attackHold : 4,
         },
@@ -43,7 +43,7 @@ var game = {
             image: "assets/images/darthSid.png",
             healthPoints : 150,
             attackPower : 6,
-            counterAttack : 20,
+            counterAttack : 10,
             identity : "darthSid",
             attackHold : 6,
         },
@@ -55,6 +55,7 @@ var game = {
         for (var i = 0; i < game.characters.length; i++) {
             var charAdd = game.characters[i];
             game.fillChars(charAdd, 'selectFighter');
+            game.showMessage('selectFighter');
         }
     },
 
@@ -114,12 +115,6 @@ var game = {
         }
     },
 
-    battleSystem : function(player, enemy){
-        player.healthPoints = player.healthPoints - enemy.counterAttack;
-        enemy.healthPoints = enemy.healthPoints - player.attackPower;
-        player.attackPower = player.attackPower + player.attackHold;
-    },
-
     toggleAttack : function(){
         var addAttack = $("#button");
         addAttack.addClass("btn-danger");
@@ -137,13 +132,26 @@ var game = {
     },
 
     showMessage : function(message){
+
         var displayMessage = $("#message");
-        if (message === "gameWon"){
+
+        if (message === "selectFighter"){
+            displayMessage.text("Select Your Character");
+        }
+        else if (message === "selectEnemy"){
+            displayMessage.text("Select Your Opponent");
+        }
+        else if (message === "playerFighting"){
+            displayMessage.text("Press Fight to Attack! and Unleash your Wrath!");
+        }
+        else if (message === "gameWon"){
             displayMessage.text("Congratulations You are the most Powerful Jedi alive");
         }
         else if (message === "gameOver"){
             displayMessage.text("GAME OVER: You have fallen to your strongest opponents");
         }
+        
+        
 
     }
 }; 
@@ -152,7 +160,6 @@ var player = null;
 var playerName = "";
 var enemy = null;
 var enemyName = "";
-var gameStatus = "selectingPlayer";
 var killCount = 0;
 
 document.getElementById('startPg').style.display = "block";
@@ -176,6 +183,7 @@ $(document).on('click', '.selectFighter', function() {
         game.displayChar('#player', player);
 
         game.charRemover(player, 'selectEnemy');
+        game.showMessage('selectEnemy')
 
     } 
 });
@@ -192,15 +200,19 @@ $(document).on('click', '.selectEnemy', function() {
 
         game.charRemover(enemy, 'playerFighting');
         game.toggleAttack();
+        game.showMessage('playerFighting');
 
     } 
 });
 
 $(document).on('click', '.btn-danger', function() {
+    var fightMessage = $("#message");
     if(enemy.healthPoints > 0 && player.healthPoints > 0){
         player.healthPoints = player.healthPoints - enemy.counterAttack;
         enemy.healthPoints = enemy.healthPoints - player.attackPower;
         player.attackPower = player.attackPower + player.attackHold;
+        fightMessage.text("You attacked " + enemy.name + " for " + player.attackPower + " damage " +
+        enemy.name + " attacked back for " + enemy.counterAttack + " damage");
         $("#player").empty();
         game.displayChar('#player', player);
         $("#enemy").empty();
