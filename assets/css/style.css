@@ -1,0 +1,75 @@
+/* Defaults */
+
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: black;
+    color: white;
+}
+
+/* Header */
+
+    header{
+        /* position: fixed; */
+        text-align: center; 
+        background-color: transparent; 
+        width: 100%;     
+    }
+    .headerImage{
+        height: 150px;
+        width: 300px;
+        margin-top: 30px;
+    }
+
+/* Start Page */
+    .startPage{
+        background: url('../images/startBackground.gif');
+        background-size: cover;
+        height: 100%;
+        padding: 225px;
+        text-align: center;
+    }
+    #startPg{
+        display: block;
+    }
+    .startButton{
+        color: black;
+        height: 100px;
+        width: 300px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 25px;
+        margin-top: 155px;
+        margin-right: 225px;
+    }
+/* Game Page */
+    /* #gamePg{
+        display: none;
+    } */
+    .charImage{
+        height: 200px;
+        width: 150px;
+    }
+    .arenaContainer{
+        margin-top: 200px;
+        padding: 20px;
+        border: 1px solid turquoise ;
+    }
+    .selectContainer{
+        margin-top: 100px;
+    }
+  
+    .selectEnemy{
+        background: red;
+    }
+
+    #message{
+        padding: 20px;
+        margin-top: 30px;
+    }
+    #button{
+        margin-top: 50px;
+        display: none;
+    }
+
+
